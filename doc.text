@@ -1,0 +1,33 @@
+pipeline {
+    agent any
+    tools{
+        maven 'MAVEN_HOME'
+        git 'GIT_HOME'
+        jdk 'JAVA_HOME'
+    }
+    stages {
+        stage('git repo & clean') {
+            steps {
+                //bat "rmdir  /s /q mavenjava"
+                bat 'if exist JavaProject rmdir /s /q JavaProject'
+                bat "git clone https://github.com/kanthi-sree765/JavaProject"
+                bat "mvn clean -f JavaProject/pom.xml"
+            }
+        }
+        stage('install') {
+            steps {
+                bat "mvn install -f JavaProject/pom.xml"
+            }
+        }
+        stage('test') {
+            steps {
+                bat "mvn test -f JavaProject/pom.xml"
+            }
+        }
+        stage('package') {
+            steps {
+                bat "mvn package -f JavaProject/pom.xml"
+            }
+        }
+    }
+}
