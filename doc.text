@@ -37,3 +37,5 @@ pipeline {
 <role rolename="manager-status"/>
 
 <user username="admin" password="admin123" roles="manager-script,manager-gui,manager-status"/>
+
+ngrok http 8080
